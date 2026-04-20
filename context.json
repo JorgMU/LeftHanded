@@ -1,0 +1,62 @@
+{
+  "version": "1.0",
+  "project": {
+    "name": "LeftHandedTyping",
+    "language": "AutoHotkey v2",
+    "type": "single-file-script",
+    "description": "A one-handed typing utility where holding Space mirrors right-hand keys using mirrorMap, tapping Space sends a normal space, and releasing Space returns to normal typing.",
+    "goals": [
+      "Maintain a single-file AutoHotkey v2 script.",
+      "Preserve tap-vs-hold Space behavior.",
+      "Preserve mirrored typing behavior using mirrorMap.",
+      "Keep all mirrored key pairs inside mirrorMap.",
+      "Avoid introducing new files or abstractions unless explicitly requested.",
+      "Ensure modifier keys (Ctrl, Alt, Win, Shift) behave normally unless explicitly overridden."
+    ],
+    "constraints": [
+      "Use AutoHotkey v2 syntax only.",
+      "Do not refactor unrelated logic.",
+      "Do not break Space tap/hold behavior.",
+      "Do not scatter mirrored key logic outside mirrorMap.",
+      "Do not override Ctrl+Key, Alt+Key, or Win+Key shortcuts.",
+      "Do not convert the script into classes unless requested.",
+      "Do not introduce new architectural patterns unless requested."
+    ],
+    "behavior_contract": {
+      "space_tap": "Send a normal space.",
+      "space_hold": "Enable mirrored typing mode.",
+      "space_release": "Return to normal typing immediately.",
+      "mirroring": "Only keys in mirrorMap are mirrored. Unmapped keys behave normally."
+    },
+    "timing_model": {
+      "tap_threshold_ms": 150,
+      "tap_definition": "Space pressed and released within threshold without other keys.",
+      "hold_definition": "Space held while another key is pressed or threshold exceeded."
+    },
+    "structure": {
+      "mirrorMap": "Single Map object containing all mirrored key pairs.",
+      "debug": "Optional Debug(msg) function; disabled by default.",
+      "indicator": "Optional on-screen indicator via ToolTip."
+    },
+    "tooling": {
+      "executable": "C:\\Program Files\\AutoHotkey\\v2\\AutoHotkey64.exe",
+      "on_path": true,
+      "vscode_extensions": [
+        "mark-wiemer.vscode-autohotkey-plus-plus",
+        "zero-plusplus.vscode-autohotkey-debug"
+      ],
+      "run_button": "With LeftHandedTyping.ahk as the active file, the VS Code run button (top-right) launches the script directly."
+    },
+    "testing": {
+      "syntax": "AutoHotkey64.exe /ErrorStdOut LeftHandedTyping.ahk",
+      "runtime": "AutoHotkey64.exe LeftHandedTyping.ahk",
+      "manual_checks": [
+        "Tap Space outputs a single space.",
+        "Hold Space + mirrored key outputs mirrored key.",
+        "Hold Space + unmapped key outputs normal key.",
+        "Release Space returns to normal typing.",
+        "Shift + mirrored key outputs shifted mirrored key."
+      ]
+    }
+  }
+}
